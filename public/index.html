@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Domínios</title>
+    <title>Verificador de Domínios 3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +16,8 @@
             padding: 20px;
             text-align: center;
             margin: 20px 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .results {
             margin-top: 20px;
@@ -68,14 +70,27 @@
             gap: 10px;
             justify-content: center;
         }
+        #fileInput {
+            max-width: 100%;
+            margin: 10px 0;
+        }
+        .file-name {
+            word-break: break-all;
+            margin: 10px 0;
+            padding: 5px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Verificador de Domínios</h1>
+    <h1>Verificador de Domínios 3</h1>
     <div class="upload-area">
         <h3>Arraste seu arquivo Excel ou clique para selecionar</h3>
         <p>O arquivo deve ter os domínios na coluna B</p>
         <input type="file" id="fileInput" accept=".xlsx,.xls">
+        <div class="file-name"></div>
     </div>
     <div class="loading">Processando arquivo...</div>
     <div class="progress"></div>
@@ -141,9 +156,15 @@
 
         clearButton.onclick = clearCache;
 
+        const fileNameDisplay = document.querySelector('.file-name');
+
         fileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
+
+            // Mostrar nome do arquivo
+            fileNameDisplay.style.display = 'block';
+            fileNameDisplay.textContent = `Arquivo selecionado: ${file.name}`;
 
             console.log('Arquivo selecionado:', file.name);
             const formData = new FormData();
